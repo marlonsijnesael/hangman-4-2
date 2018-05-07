@@ -10,21 +10,36 @@ public class TurnManager : MonoBehaviour
     public static Player currentPlayer;
     public static Player waitingPlayer;
 
+    public GameObject[] noosePlayer1, noosePlayer2;
+    public GameObject noose1, noose2;
     public Text activeScoreUI;
     public Text waitingScoreUI;
     public Text turnUI;
 
+    public int maxWrongAnswers;
     public int turn = 0;
     public int player1Score, player2Score;
 
 
-    private void Start()
+    private void Awake()
     {
         currentPlayer = player1;
         waitingPlayer = player2;
+        GetNooseComponents(noose1, noosePlayer1);
+        GetNooseComponents(noose2, noosePlayer2);
         UpdateUI();
     }
 
+    //puts the components of the gallow in an array
+    private void GetNooseComponents(GameObject noose, GameObject[] nooseArray)
+    {
+       // noose.transform.childCount 
+        for (int i = 0; i < noose.transform.childCount; i++)
+        {
+            nooseArray[i] = noose.transform.GetChild(i).gameObject;
+        }
+    }
+   
     private void Update()
     {
         UpdateUI();
@@ -49,7 +64,24 @@ public class TurnManager : MonoBehaviour
         turnUI.text = "Turn: " + turn.ToString();
         activeScoreUI.text = "Now playing: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
         waitingScoreUI.text = waitingPlayer.nickName + " Score: " + waitingPlayer.score;
-
     }
 
+    public void UpdateNoose()
+    {
+
+        int wronganswers = currentPlayer.wrongAnswers;
+
+        if (wronganswers < maxWrongAnswers)
+        {
+            if (currentPlayer == player1)
+            {
+                noosePlayer1[wronganswers].SetActive(true);
+            }
+
+            else if (currentPlayer == player2)
+            {
+                noosePlayer2[wronganswers].SetActive(true);
+            }
+        }
+    }
 }
