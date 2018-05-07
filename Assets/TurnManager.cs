@@ -8,8 +8,10 @@ public class TurnManager : MonoBehaviour
     [SerializeField]
     private Player player1, player2;
     public static Player currentPlayer;
+    public static Player waitingPlayer;
 
-    public Text scoreUI;
+    public Text activeScoreUI;
+    public Text waitingScoreUI;
     public Text turnUI;
 
     public int turn = 0;
@@ -19,6 +21,7 @@ public class TurnManager : MonoBehaviour
     private void Start()
     {
         currentPlayer = player1;
+        waitingPlayer = player2;
         UpdateUI();
     }
 
@@ -27,24 +30,25 @@ public class TurnManager : MonoBehaviour
         UpdateUI();
     }
 
-    public void SetTurn()
+    //used in textfield to call the setturn on end edit
+    public void SetTurnOnEdit()
+    {
+        SetTurn(currentPlayer, waitingPlayer);
+    }
+
+    private void SetTurn(Player _current , Player _waiting)
     {
         turn++;
-        if (currentPlayer == player1)
-        {
-            currentPlayer = player2;
-        }
-        else if (currentPlayer == player2)
-        {
-            currentPlayer = player1;
-        }
+        currentPlayer = _waiting;
+        waitingPlayer = _current;
     }
 
     //updates turn and score UI when called
     private void UpdateUI()
     {
         turnUI.text = "Turn: " + turn.ToString();
-        scoreUI.text = "Now playing: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
+        activeScoreUI.text = "Now playing: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
+        waitingScoreUI.text = waitingPlayer.nickName + " Score: " + waitingPlayer.score;
 
     }
 

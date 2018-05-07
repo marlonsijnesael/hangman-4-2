@@ -98,10 +98,17 @@ public class Words : MonoBehaviour {
     //split up word and sets displayword to length of current word
     private void StringToArray()
     {
+        //reset wordindex when end of words is reached
+        if (wordIndex >= words.Length)
+        {
+            wordIndex = 0;
+        }
+
         currentWordSplitUp = new string[words[wordIndex].word.Length];
         currentLettersFilled = new string[currentWordSplitUp.Length];
         inputfield.text = null;
         textUI = "";
+        
         for (int i = 0; i < words[wordIndex].word.Length; i++)
         {
             currentWordSplitUp[i] = words[wordIndex].word[i].ToString();
