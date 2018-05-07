@@ -11,16 +11,16 @@ public class DisplayWord : MonoBehaviour {
 
     public void Update()
     {
-        displayWord.text = NewText();
+        //displayWord.text = NewText();
     }
 
 
     private string NewText()
     {
         string _newText = "";
-        for (int i = 0; i < Words._Instance.currentWordSplitUp.Length; i++)
+       // for (int i = 0; i < Words._Instance.currentWordSplitUp.Length; i++)
         {
-            _newText = _newText + Words._Instance.currentLettersFilled[i];
+         //   _newText = _newText + Words._Instance.currentLettersFilled[i];
         }
         return _newText;
     }
