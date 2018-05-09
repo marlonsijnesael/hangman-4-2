@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.SceneManagement;
 
 public class TurnManager : MonoBehaviour
 {
@@ -33,16 +34,21 @@ public class TurnManager : MonoBehaviour
     //puts the components of the gallow in an array
     private void GetNooseComponents(GameObject noose, GameObject[] nooseArray)
     {
-       // noose.transform.childCount 
+        // noose.transform.childCount 
         for (int i = 0; i < noose.transform.childCount; i++)
         {
             nooseArray[i] = noose.transform.GetChild(i).gameObject;
         }
     }
-   
+
     private void Update()
     {
         UpdateUI();
+
+        if (player1.wrongAnswers >= maxWrongAnswers || player2.wrongAnswers >= maxWrongAnswers)
+        {
+            GameOver();
+        }
     }
 
     //used in textfield to call the setturn on end edit
@@ -54,16 +60,23 @@ public class TurnManager : MonoBehaviour
     private void SetTurn(Player _current , Player _waiting)
     {
         turn++;
-        currentPlayer = _waiting;
-        waitingPlayer = _current;
+       currentPlayer = _waiting;
+       waitingPlayer = _current;
     }
 
     //updates turn and score UI when called
     private void UpdateUI()
     {
         turnUI.text = "Turn: " + turn.ToString();
-        activeScoreUI.text = "Now playing: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
-        waitingScoreUI.text = waitingPlayer.nickName + " Score: " + waitingPlayer.score;
+        activeScoreUI.text = "Player 1: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
+        waitingScoreUI.text = "Player 2: " + waitingPlayer.nickName + " Score: " + waitingPlayer.score;
+    }
+
+
+    //game over screen
+    void GameOver()
+    {
+        SceneManager.LoadScene(2);
     }
 
     public void UpdateNoose()
@@ -71,16 +84,16 @@ public class TurnManager : MonoBehaviour
 
         int wronganswers = currentPlayer.wrongAnswers;
 
-        if (wronganswers < maxWrongAnswers)
+        if (wronganswers > 0)
         {
             if (currentPlayer == player1)
             {
-                noosePlayer1[wronganswers].SetActive(true);
+                noosePlayer1[player1.wrongAnswers -1].SetActive(true);
             }
 
-            else if (currentPlayer == player2)
+            if (currentPlayer == player2)
             {
-                noosePlayer2[wronganswers].SetActive(true);
+                noosePlayer2[player2.wrongAnswers-1].SetActive(true);
             }
         }
     }

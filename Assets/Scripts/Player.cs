@@ -2,6 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 
+/// <summary>
+/// baseclass for players, contains information like score and id
+/// </summary>
+
 [System.Serializable]
 public class Player
 {
