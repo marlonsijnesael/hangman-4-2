@@ -45,4 +45,7 @@ MonoBehaviour:
   - UpdateLobbyText
   - Xtest
   - UpdateUI
+  - CheckPlayers
+  - ToGame
+  - SetNames
   DisableAutoOpenWizard: 1

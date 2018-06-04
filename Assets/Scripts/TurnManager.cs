@@ -3,8 +3,9 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
+using Photon;
 
-public class TurnManager : MonoBehaviour
+public class TurnManager : PunBehaviour
 {
     [SerializeField]
     private Player player1, player2;
@@ -68,8 +69,8 @@ public class TurnManager : MonoBehaviour
     private void UpdateUI()
     {
         turnUI.text = "Turn: " + turn.ToString();
-        activeScoreUI.text = "Player 1: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
-        waitingScoreUI.text = "Player 2: " + waitingPlayer.nickName + " Score: " + waitingPlayer.score;
+        //activeScoreUI.text = "Player 1: " + currentPlayer.nickName + " Score: " + currentPlayer.score;
+        //waitingScoreUI.text = "Player 2: " + waitingPlayer.nickName + " Score: " + waitingPlayer.score;
     }
 
 
