@@ -48,4 +48,5 @@ MonoBehaviour:
   - CheckPlayers
   - ToGame
   - SetNames
+  - SetTurn
   DisableAutoOpenWizard: 1
